@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-public class TPage <T> {
+public class TPage<T> {
     private int number;
     private int size;
     private Sort sort;

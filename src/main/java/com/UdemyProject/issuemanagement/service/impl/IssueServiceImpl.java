@@ -19,37 +19,54 @@ public class IssueServiceImpl implements IssueService {
     private final ModelMapper modelMapper;
 
     public IssueServiceImpl(IssueRepository issueRepository, ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
         this.issueRepository = issueRepository;
-    }
+        this.modelMapper = modelMapper;
 
-    @Override
-    public IssueDto save(IssueDto issueDto) {
-        if(issueDto.getDate() == null) {
-            throw new IllegalStateException("issue date cannot be null");
-
-        }
-        Issue issueEntity = modelMapper.map(issueDto , Issue.class);
-        issueEntity=  issueRepository.save(issueEntity);
-        return modelMapper.map(issueEntity,IssueDto.class);
     }
 
     @Override
     public IssueDto getById(Long id) {
-        return null;
+        Issue issue = issueRepository.getOne(id);
+        return modelMapper.map(issue, IssueDto.class);
     }
 
     @Override
     public TPage<IssueDto> getAllPageable(Pageable pageable) {
         Page<Issue> data = issueRepository.findAll(pageable);
-        TPage page = new TPage<IssueDto>();
-        IssueDto[] dtos = modelMapper.map(data.getContent(),IssueDto[].class);
-        page.setStat(data, Arrays.asList(dtos));
-        return page;
+        TPage<IssueDto> response = new TPage<>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueDto.class)));
+        return response;
     }
 
     @Override
-    public Boolean delete(IssueDto issue) {
-        return null;
+    public Boolean delete(Long issueId) {
+        issueRepository.deleteById(issueId);
+        return true;
+    }
+
+    @Override
+    public IssueDto save(IssueDto issue) {
+        if (issue.getDate() == null) {
+            throw new IllegalStateException("issue date cannot be null");
+
+        }
+        Issue issueEntity = modelMapper.map(issue, Issue.class);
+        issueEntity = issueRepository.save(issueEntity);
+        issue.setId(issueEntity.getId());
+        return issue;
+    }
+
+    @Override
+    public IssueDto update(Long id, IssueDto issueDto) {
+        Issue issue = issueRepository.getOne(id);
+        if (issue == null)
+            throw new IllegalStateException("İssue does not exist id:" + id);
+
+        issue.setDescription(issueDto.getDescription());
+        issue.setDetails(issueDto.getDetails());
+        issue.setDate(issueDto.getDate());
+        issue.setIssueStatus(issueDto.getIssueStatus());
+        issueRepository.save(issue);
+        return modelMapper.map(issue,IssueDto.class);
     }
 }

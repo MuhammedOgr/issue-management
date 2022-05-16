@@ -1,9 +1,7 @@
 package com.UdemyProject.issuemanagement.service;
 
 import com.UdemyProject.issuemanagement.dto.IssueDto;
-import com.UdemyProject.issuemanagement.entitiy.Issue;
 import com.UdemyProject.issuemanagement.util.TPage;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IssueService {
@@ -16,5 +14,5 @@ public interface IssueService {
 
     Boolean delete(Long issue);
 
-    IssueDto update(Long id, IssueDto issueDto);
+    IssueDto update(Long id, IssueDto project);
 }

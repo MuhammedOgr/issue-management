@@ -13,9 +13,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
 
+
 @Configuration
 @EnableSwagger2
-class SwaggerConfig {
+public class SwaggerConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
@@ -29,7 +30,7 @@ class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select().paths(PathSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.UdemyProject.issuemanagement"))
+                .apis(RequestHandlerSelectors.basePackage("com.temelt"))
                 .build()
                 .pathMapping("/")
                 .useDefaultResponseMessages(false)

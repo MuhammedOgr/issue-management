@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("Project Data Transfer Object")
+@ApiModel(value = "Project Data Transfer Object")
 public class ProjectDto {
     @ApiModelProperty(value = "Project ID")
     private Long id;
@@ -20,4 +20,11 @@ public class ProjectDto {
     @NotNull
     @ApiModelProperty(required = true,value = "Code Of Project")
     private String projectCode;
+
+    @NotNull
+    @ApiModelProperty(required = true,value = "Project Manager ID")
+    private Long managerId;
+
+    @ApiModelProperty(required = true,value = "Project Manager Name")
+    private UserDto manager;
 }

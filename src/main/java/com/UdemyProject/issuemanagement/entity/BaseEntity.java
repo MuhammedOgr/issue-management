@@ -1,4 +1,4 @@
-package com.UdemyProject.issuemanagement.entitiy;
+package com.UdemyProject.issuemanagement.entity;
 
 import lombok.Data;
 

@@ -3,12 +3,17 @@ package com.UdemyProject.issuemanagement.api;
 import com.UdemyProject.issuemanagement.dto.ProjectDto;
 import com.UdemyProject.issuemanagement.service.impl.ProjectServiceImpl;
 import com.UdemyProject.issuemanagement.util.ApiPaths;
+import com.UdemyProject.issuemanagement.util.TPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
@@ -22,11 +27,27 @@ public class ProjectController {
         this.projectServiceImpl = projectServiceImpl;
     }
 
+
+    @GetMapping("/pagination")
+    @ApiOperation(value = "Get By Pagination Operation", response = ProjectDto.class)
+    public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {
+        TPage<ProjectDto> data = projectServiceImpl.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+    }
+
+
+    @GetMapping()
+    @ApiOperation(value = "Get All Operation", response = ProjectDto.class , responseContainer = "List")
+    public ResponseEntity<List<ProjectDto>> getAll() {
+        List<ProjectDto> data = projectServiceImpl.getAll();
+        return ResponseEntity.ok(data);
+    }
+
     @GetMapping("/{id}")
     @ApiOperation(value = "Get By Id Operation", response = ProjectDto.class)
     public ResponseEntity<ProjectDto> getById(@PathVariable("id") Long id) {
-        log.info("ProjectController-> GetByID");
-        log.debug("ProjectController-> GetByID -> PARAM:" +id);
+        log.info("ProjectController-> GetByID -> PARAM:" +id);
+        log.info("ProjectController-> GetByID -> PARAM:" +id);
         ProjectDto projectDto = projectServiceImpl.getById(id);
         return ResponseEntity.ok(projectDto);
     }

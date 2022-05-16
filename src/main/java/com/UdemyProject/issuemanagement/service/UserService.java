@@ -1,14 +1,18 @@
 package com.UdemyProject.issuemanagement.service;
 
-import com.UdemyProject.issuemanagement.entitiy.Issue;
-import com.UdemyProject.issuemanagement.entitiy.User;
+import com.UdemyProject.issuemanagement.dto.UserDto;
+import com.UdemyProject.issuemanagement.entity.User;
+import com.UdemyProject.issuemanagement.util.TPage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    User save (User user);
-    User getById (Long id);
-    Page<User> getAllPageable(Pageable pageable);
-    User getByUsername(String username);
+    UserDto save(UserDto user);
+
+    UserDto getById(Long id);
+
+    TPage<UserDto> getAllPageable(Pageable pageable);
+
+    UserDto getByUsername(String username);
 }

@@ -1,11 +1,7 @@
 package com.UdemyProject.issuemanagement.service;
 
 import com.UdemyProject.issuemanagement.dto.ProjectDto;
-import com.UdemyProject.issuemanagement.entitiy.Issue;
-import com.UdemyProject.issuemanagement.entitiy.Project;
-import com.UdemyProject.issuemanagement.entitiy.User;
 import com.UdemyProject.issuemanagement.util.TPage;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
